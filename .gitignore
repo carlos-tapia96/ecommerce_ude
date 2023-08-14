@@ -1,0 +1,50 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env
+
+# Django generated files
+*.log
+db.sqlite3
+
+# Static files
+staticfiles/
+media/
+
+# Compiled UI files
+*.pyc
+
+# IDE-specific files
+.vscode/
+*.idea/
+*.pydevproject
+
+# Compiled Python files
+*.pyc
+__pycache__/
+
+# Local development settings
+settings/local.py
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Package files
+*.egg-info/
+dist/
+build/
+eggs/
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS files
+.DS_Store
+
+# Editor-specific files
+*~
