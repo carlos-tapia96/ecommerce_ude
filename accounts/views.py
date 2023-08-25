@@ -103,13 +103,14 @@ def login(request):
             auth.login(request, user)
             messages.success(request, 'Has iniciado sesion exitosamente.')
             
-            url=request.Meta.get('HTTP_REFERER')
+            url=request.META.get('HTTP_REFERER')
             try:
                 query = requests.utils.urlparse(url).query
                 # next=/cart/checkout/
                 params = dict(x.split('=') for x in query.split('&'))
-                nextPage = params['next']
-                return redirect(nextPage)
+                if 'next' in params:                
+                    nextPage = params['next']
+                    return redirect(nextPage)
             except:
                 return redirect('dashboard')
         else:
@@ -132,6 +133,7 @@ def activate(request, uidb64, token):
         user = Account._default_manager.get(pk=uid)
     except(TypeError, ValueError, OverflowError, Account.DoesNotExist):
         user=None
+
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save
@@ -141,11 +143,13 @@ def activate(request, uidb64, token):
         messages.error(request, 'La activacion es invalida')
         return redirect ('register')
 
+
 @login_required(login_url='login')
 def dashboard(request):
     return render (request, 'accounts/dashboard.html')
-    
-    
+
+
+
 def forgotPassword(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -164,7 +168,7 @@ def forgotPassword(request):
             send_email = EmailMessage(mail_subject, body, to=[to_email])
             send_email.send()
             
-            messages.SUCCESS(request, 'un email fue enviado a tu correo electronico para reiniciar tu Password')
+            messages.success(request, 'un email fue enviado a tu correo electronico para reiniciar tu Password')
             return redirect('login')
         else:
             messages.error(request, 'tu cuenta de usuario no existe')

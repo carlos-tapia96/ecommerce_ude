@@ -47,7 +47,7 @@ def add_cart(request, product_id):
                 ex_var_list.append(list(existing_variation))
                 id.append(item.id)
 
-            if product_variation  in ex_var_list:
+            if product_variation in ex_var_list:
                   index = ex_var_list.index(product_variation)
                   item_id = id[index]
                   item = CartItem.objects.get(product=product, id=item_id)
@@ -109,7 +109,7 @@ def add_cart(request, product_id):
                 ex_var_list.append(list(existing_variation))
                 id.append(item.id)
 
-            if product_variation  in ex_var_list:
+            if product_variation in ex_var_list:
                   index = ex_var_list.index(product_variation)
                   item_id = id[index]
                   item = CartItem.objects.get(product=product, id=item_id)
@@ -162,6 +162,7 @@ def remove_cart_item(request, product_id, cart_item_id):
     else:
         cart = Cart.objects.get(cart_id=_cart_id(request))
         cart_item = CartItem.objects.get(product=product, cart=cart, id=cart_item_id)
+    
     cart_item.delete()
     return redirect('cart')
 
